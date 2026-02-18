@@ -1,0 +1,113 @@
+R2>enable
+Password: 
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#do show running-config
+Building configuration...
+
+Current configuration : 1306 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R2
+!
+!
+!
+enable password 1234
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username R2 password 0 1234
+!
+!
+license udi pid CISCO2911/K9 sn FTX15249TZ7
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name R2
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback2
+ ip address 2.2.2.2 255.255.255.255
+!
+interface GigabitEthernet0/0
+ ip address 10.10.10.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 12.12.12.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2.10
+ encapsulation dot1Q 10
+ ip address 192.168.103.1 255.255.255.0
+!
+interface GigabitEthernet0/2.20
+ encapsulation dot1Q 20
+ ip address 192.168.104.1 255.255.255.0
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 10.10.10.0 0.0.0.3 area 0
+ network 10.12.12.0 0.0.0.3 area 0
+ network 12.12.12.0 0.0.0.3 area 0
+ network 192.168.103.0 0.0.0.255 area 0
+ network 192.168.104.0 0.0.0.255 area 0
+ network 2.2.2.2 0.0.0.0 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login local
+!
+!
+!
+end
